@@ -3,6 +3,6 @@
 # :nodoc:
 class Lambda
   def self.call(*)
-    { ok: true }
+    { ok: gem('rss') }
   end
 end

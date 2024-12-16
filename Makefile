@@ -13,3 +13,13 @@ build-GemLayer: bundler-config
 
 build-FetcherFunction:
 	rsync --exclude-from .rsyncignore -a . $(ARTIFACTS_DIR)
+	cd $(ARTIFACTS_DIR) && bundle config set path /opt
+
+build:
+	sam build
+
+invoke-%: build
+	sam local invoke $*Function --event events/$*.json
+
+deploy:
+	sam deploy

@@ -1,12 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    rexml (3.4.0)
+    rss (0.3.0)
+      rexml
 
 PLATFORMS
   arm64-darwin-23
   ruby
 
 DEPENDENCIES
+  rss
 
 BUNDLED WITH
    2.5.23
