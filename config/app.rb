@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require 'bundler/setup'
 require 'dry/system'
+
+Bundler.require(:default)
 
 # :nodoc:
 class Lambda < Dry::System::Container
