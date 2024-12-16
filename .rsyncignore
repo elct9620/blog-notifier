@@ -1,0 +1,13 @@
+# Git
+.git
+.gitignore
+
+# AWS SAM
+events/
+samconfig.toml
+template.yaml
+
+.rsyncignore
+.ruby-lsp/
+Makefile
+README.md
