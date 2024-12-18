@@ -82,7 +82,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.2)
-    rss (0.3.0)
+    rss (0.3.1)
       rexml
     rubocop (1.69.0)
       json (~> 2.3)
