@@ -8,14 +8,14 @@ Bundler.require(:default)
 # :nodoc:
 class Lambda < Dry::System::Container
   configure do |config|
-    config.root = Bundler.root.join('app')
+    config.root = Bundler.root
 
-    config.component_dirs.add 'lambda'
+    config.component_dirs.add 'app'
   end
 
   def self.call(event:, context:)
-    name = config.inflector.underscore(context.function_name)
-    self[name].call(event: event, context: context)
+    name = config.inflector.underscore(context.function_name).delete_suffix('_function')
+    self["functions.#{name}"].call(event: event, context: context)
   end
 end
 
