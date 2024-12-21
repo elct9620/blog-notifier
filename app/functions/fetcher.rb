@@ -10,11 +10,8 @@ module Functions
       body = Net::HTTP.get(uri)
       feed = RSS::Parser.parse(body)
 
-      feed.items.map do |item|
-        {
-          title: item.title
-        }
-      end
+      usecase = Usecase::ScheduleNotify.new
+      usecase.call(feed)
     end
   end
 end

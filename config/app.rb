@@ -7,6 +7,8 @@ Bundler.require(:default)
 
 # :nodoc:
 class Lambda < Dry::System::Container
+  use :zeitwerk
+
   configure do |config|
     config.root = Bundler.root
 
