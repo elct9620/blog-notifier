@@ -10,6 +10,7 @@ on:
       - main
 
 env:
+  AWS_REGION: ap-northeast-1
   RUBY_VERSION: '3.3'
 
 permissions:
