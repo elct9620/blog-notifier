@@ -12,9 +12,12 @@ build-GemLayer:
 	find $(ARTIFACTS_DIR) -type f -name '*.gem' -delete
 	rm $(ARTIFACTS_DIR)/Gemfile*
 
-build-FetcherFunction:
+build-%:
 	rsync --exclude-from .rsyncignore -a . $(ARTIFACTS_DIR)
-	cd $(ARTIFACTS_DIR) && bundle config set path /opt
+	cd $(ARTIFACTS_DIR) \
+		&& bundle config set path /opt \
+		&& bundle config set deployment 'true' \
+		&& bundle config set without 'development test'
 
 build:
 	sam build
