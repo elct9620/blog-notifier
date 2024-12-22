@@ -6,7 +6,7 @@ require 'dry/system'
 Bundler.require(:default)
 
 # :nodoc:
-class Lambda < Dry::System::Container
+class Application < Dry::System::Container
   use :zeitwerk
 
   configure do |config|
@@ -21,5 +21,5 @@ class Lambda < Dry::System::Container
   end
 end
 
-Lambda.finalize!
-Deps = Lambda.injector
+Application.finalize!
+Deps = Application.injector
