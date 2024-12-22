@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
+require 'forwardable'
+
 require_relative 'app'
 
 # :nodoc:
 module Lambda
   # :nodoc:
   class Handler
+    extend Forwardable
+    delegate %w[config resolve] => Application
+    delegate %w[inflector] => :config
+
     attr_reader :event, :context
 
     def initialize(event:, context:)
@@ -14,13 +20,17 @@ module Lambda
     end
 
     def call
-      Application["functions.#{name}"].call(event: event, context: context)
+      resolve("functions.#{name}").call(event: event, context: context)
     end
 
     private
 
+    def function_name
+      ENV.fetch('AWS_LAMBDA_FUNCTION_NAME', context.function_name)
+    end
+
     def name
-      @name ||= Application.config.inflector.underscore(context.function_name).delete_suffix('_function')
+      @name ||= inflector.underscore(function_name).delete_suffix('_function')
     end
   end
 
