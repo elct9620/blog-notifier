@@ -10,7 +10,8 @@ class Application < Dry::System::Container
   use :zeitwerk
 
   configure do |config|
-    config.root = Bundler.root
+    config.root = Pathname.new(__dir__).join('..')
+    config.provider_dirs = ['config/providers']
 
     config.component_dirs.add 'app'
   end
@@ -21,5 +22,4 @@ class Application < Dry::System::Container
   end
 end
 
-Application.finalize!
 Deps = Application.injector

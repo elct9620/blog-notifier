@@ -27,6 +27,8 @@ module Lambda
   module_function
 
   def call(event:, context:)
+    Application.finalize!
+
     Handler.new(event: event, context: context).call
   end
 end
