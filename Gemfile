@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'aws-sdk-sqs'
 gem 'dry-system'
 gem 'rss'
 
