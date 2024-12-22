@@ -3,6 +3,12 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   The notification system for blog.aotoki.me
 
+Parameters:
+  Namespace:
+    Type: String
+    Default: "blog-notifier"
+    Description: "The namespace for the blog notifier"
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -19,6 +25,7 @@ Globals:
       - !Ref GemLayer
     Environment:
       Variables:
+        NAMESPACE: !Ref Namespace
         AWS_LAMBDA_EXEC_WRAPPER: /var/task/bin/bootstrap
 
 Resources:
@@ -34,9 +41,9 @@ Resources:
     Metadata:
       BuildMethod: makefile
   FetcherFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "blog-notifier_fetcher"
+      FunctionName: !Sub "${Namespace}_fetcher"
       Description: "The fetcher function to get the latest blog posts"
     Metadata:
       BuildMethod: makefile

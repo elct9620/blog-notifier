@@ -8,6 +8,8 @@ require_relative 'app'
 module Lambda
   # :nodoc:
   class Handler
+    FUNCTION_RESOLVE_KEY = 'functions'
+
     extend Forwardable
     delegate %w[config resolve] => Application
     delegate %w[inflector] => :config
@@ -20,13 +22,17 @@ module Lambda
     end
 
     def call
-      resolve("functions.#{name}").call(event: event, context: context)
+      resolve("#{FUNCTION_RESOLVE_KEY}.#{name}").call(event: event, context: context)
     end
 
     private
 
+    def namespace
+      ENV.fetch('NAMESPACE', '')
+    end
+
     def function_name
-      ENV.fetch('AWS_LAMBDA_FUNCTION_NAME', context.function_name)
+      ENV.fetch('AWS_LAMBDA_FUNCTION_NAME', context.function_name).delete_prefix("#{namespace}_")
     end
 
     def name
