@@ -47,3 +47,10 @@ Resources:
       Description: "The fetcher function to get the latest blog posts"
     Metadata:
       BuildMethod: makefile
+  NotifierFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${Namespace}_notifier"
+      Description: "The notifier function to send the notification"
+    Metadata:
+      BuildMethod: makefile

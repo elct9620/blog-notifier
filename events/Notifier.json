@@ -1,0 +1,13 @@
+{
+  "Records": [
+    {
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:ap-northeast-1:123456789012:BlogNotifyQueue",
+      "messageId": "c80e8021-a70a-42c7-a470-796e1186f753",
+      "body": {
+        "url": "https://blog.aotoki.me/posts/2024/12/18/build-unix-pipeline-based-golang-plugin-system/",
+        "destination": "discord"
+      }
+    }
+  ]
+}
