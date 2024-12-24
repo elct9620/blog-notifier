@@ -56,7 +56,7 @@ Resources:
         NotifierEvent:
           Type: SQS
           Properties:
-            Queue: !Ref NotifierQueue
+            Queue: !GetAtt NotifierQueue.Arn
     Metadata:
       BuildMethod: makefile
   NotifierQueue:
