@@ -45,6 +45,9 @@ Resources:
     Properties:
       FunctionName: !Sub "${Namespace}_fetcher"
       Description: "The fetcher function to get the latest blog posts"
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt NotifierQueue.QueueName
     Metadata:
       BuildMethod: makefile
   NotifierFunction:
@@ -52,6 +55,9 @@ Resources:
     Properties:
       FunctionName: !Sub "${Namespace}_notifier"
       Description: "The notifier function to send the notification"
+      Policies:
+        - SQSPollerPolicy:
+            QueueName: !GetAtt NotifierQueue.QueueName
       Events:
         NotifierEvent:
           Type: SQS
