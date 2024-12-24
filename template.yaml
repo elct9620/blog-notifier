@@ -52,5 +52,16 @@ Resources:
     Properties:
       FunctionName: !Sub "${Namespace}_notifier"
       Description: "The notifier function to send the notification"
+      Events:
+        NotifierEvent:
+          Type: SQS
+          Properties:
+            Queue: !Ref NotifierQueue
     Metadata:
       BuildMethod: makefile
+  NotifierQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub "${Namespace}_queue"
+      VisibilityTimeout: 300
+      MessageRetentionPeriod: 86400

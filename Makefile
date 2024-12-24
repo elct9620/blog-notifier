@@ -25,5 +25,5 @@ build:
 invoke-%: build
 	sam local invoke $*Function --event events/$*.json
 
-deploy:
+deploy: build
 	sam deploy
