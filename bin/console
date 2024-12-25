@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+Bundler.require(:default)
+
+require 'irb'
+require_relative '../config/app'
+
+Application.finalize!
+
+IRB.start
