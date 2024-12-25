@@ -1,3 +1,8 @@
+PROFILE_FLAG=
+ifneq ("$(AWS_PROFILE)","")
+	PROFILE_FLAG=--profile $(AWS_PROFILE)
+endif
+
 build-GemLayer:
 	cp Gemfile* $(ARTIFACTS_DIR)
 	cd $(ARTIFACTS_DIR) \
@@ -23,7 +28,7 @@ build:
 	sam build
 
 invoke-%: build
-	sam local invoke $*Function --event events/$*.json
+	sam local invoke $*Function --event events/$*.json --env-vars env.json $(PROFILE_FLAG)
 
 deploy: build
 	sam deploy

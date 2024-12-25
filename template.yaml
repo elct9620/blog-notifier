@@ -26,6 +26,7 @@ Globals:
     Environment:
       Variables:
         NAMESPACE: !Ref Namespace
+        QUEUE_URL: !Ref NotifierQueue
         AWS_LAMBDA_EXEC_WRAPPER: /var/task/bin/bootstrap
 
 Resources:

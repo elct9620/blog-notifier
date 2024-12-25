@@ -10,7 +10,8 @@ module Functions
       body = Net::HTTP.get(uri)
       feed = RSS::Parser.parse(body)
 
-      usecase = Usecase::ScheduleNotify.new
+      queue = Jobs::NotificationJob.new
+      usecase = Usecase::ScheduleNotify.new(queue:)
       usecase.call(feed)
     end
   end

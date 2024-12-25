@@ -14,6 +14,9 @@ class Application < Dry::System::Container
     config.provider_dirs = ['config/providers']
 
     config.component_dirs.add 'app'
+    config.component_dirs.add 'lib' do |dir|
+      dir.auto_register = false
+    end
   end
 
   def self.call(event:, context:)
