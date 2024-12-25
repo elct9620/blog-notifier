@@ -11,9 +11,9 @@ module Usecase
 
     def call(feed)
       feed.items.map do |item|
-        queue.enqueue({
-                        title: item.title
-                      })
+        entity = { title: item.title }
+        queue.enqueue(entity)
+        entity
       end
     end
   end

@@ -7,6 +7,7 @@ Bundler.require(:default)
 
 # :nodoc:
 class Application < Dry::System::Container
+  use :env, inferrer: -> { ENV.fetch('APP_ENV', 'development') }
   use :zeitwerk
 
   configure do |config|

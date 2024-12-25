@@ -6,6 +6,8 @@ Application.register_provider(:sqs) do
   end
 
   start do
-    register(:sqs, Aws::SQS::Client.new)
+    register(:sqs, Aws::SQS::Client.new(
+                     stub_responses: Application.env == 'test'
+                   ))
   end
 end
