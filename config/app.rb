@@ -5,6 +5,9 @@ require 'dry/system'
 
 Bundler.require(:default)
 
+# NOTE: multi-layer bug not fixed yet - https://github.com/aws/aws-sam-cli/issues/3118
+ENV.delete('AWS_SESSION_TOKEN') if ENV['AWS_SESSION_TOKEN'] == ''
+
 # :nodoc:
 class Application < Dry::System::Container
   use :env, inferrer: -> { ENV.fetch('APP_ENV', 'development') }
