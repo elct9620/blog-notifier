@@ -3,13 +3,16 @@
 module Usecase
   # :nodoc:
   class ScheduleNotify
-    attr_reader :queue
+    attr_reader :queue, :feeds
 
-    def initialize(queue:)
+    def initialize(queue:, feeds:)
       @queue = queue
+      @feeds = feeds
     end
 
-    def call(feed)
+    def call(uri:)
+      feed = feeds.find(uri)
+
       feed.items.map do |item|
         entity = { title: item.title }
         queue.enqueue(entity)
