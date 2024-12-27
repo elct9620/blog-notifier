@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Jobs
+module Queues
   # :nodoc:
-  class NotificationJob
+  class Notification
     include Deps[:sqs]
 
     def enqueue(feed)
