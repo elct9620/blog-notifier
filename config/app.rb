@@ -17,7 +17,11 @@ class Application < Dry::System::Container
     config.root = Pathname.new(__dir__).join('..')
     config.provider_dirs = ['config/providers']
 
-    config.component_dirs.add 'app'
+    config.component_dirs.add 'app' do |dir|
+      dir.auto_register = proc do |component|
+        !component.identifier.start_with?('entities')
+      end
+    end
   end
 
   def self.call(event:, context:)

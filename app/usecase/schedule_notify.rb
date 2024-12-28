@@ -14,9 +14,8 @@ module Usecase
       feed = feeds.find(uri)
 
       feed.items.map do |item|
-        entity = { title: item.title }
-        queue.enqueue(entity)
-        entity
+        queue.enqueue(item)
+        item
       end
     end
   end
