@@ -12,7 +12,10 @@ module Functions
 
     def call(event:, **)
       usecase = Usecase::ScheduleNotify.new(queue:, feeds:)
-      usecase.call(uri: event['feed_uri'])
+      out = usecase.call(uri: event['feed_uri'])
+      out.map do |item|
+        { title: item.title }
+      end
     end
   end
 end

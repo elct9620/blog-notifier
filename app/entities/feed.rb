@@ -3,6 +3,8 @@
 module Entities
   # :nodoc:
   class Feed
+    include Enumerable
+
     attr_reader :items
 
     def initialize
@@ -11,6 +13,10 @@ module Entities
 
     def add_item(item)
       @items << item
+    end
+
+    def each(&)
+      @items.each(&)
     end
   end
 end

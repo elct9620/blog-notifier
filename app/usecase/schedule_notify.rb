@@ -13,9 +13,8 @@ module Usecase
     def call(uri:)
       feed = feeds.find(uri)
 
-      feed.items.map do |item|
+      feed.each do |item|
         queue.enqueue(item)
-        item
       end
     end
   end
