@@ -3,10 +3,12 @@
 module Entities
   # :nodoc:
   class FeedItem
-    attr_reader :title
+    attr_reader :title, :link, :published_at
 
-    def initialize(title:)
+    def initialize(title:, link:, published_at:)
       @title = title
+      @link = link
+      @published_at = published_at
     end
   end
 end
