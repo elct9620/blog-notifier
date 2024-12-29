@@ -5,12 +5,17 @@ require 'date'
 module Repository
   # :nodoc:
   class Feed
-    def find(uri)
+    def find(uri, start_at: nil)
       entity = Entities::Feed.new
 
       body = Net::HTTP.get(URI(uri))
       RSS::Parser.parse(body).items.each do |item|
-        entity.add_item(build_feed_item(item))
+        item = build_feed_item(item)
+
+        is_expired = start_at && item.published_at < start_at
+        next if is_expired
+
+        entity.add_item(item)
       end
 
       entity

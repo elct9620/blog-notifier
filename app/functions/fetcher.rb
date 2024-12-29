@@ -11,8 +11,10 @@ module Functions
     ]
 
     def call(event:, **)
+      scheduled_at = DateTime.parse(event['scheduled_at'])
+
       usecase = Usecase::ScheduleNotify.new(queue:, feeds:)
-      out = usecase.call(uri: event['feed_uri'])
+      out = usecase.call(uri: event['feed_uri'], scheduled_at:)
       out.map do |item|
         { title: item.title }
       end
