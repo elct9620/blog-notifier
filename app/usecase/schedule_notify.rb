@@ -3,17 +3,16 @@
 module Usecase
   # :nodoc:
   class ScheduleNotify
-    ONE_DAY = 1
+    attr_reader :queue, :feeds, :settings
 
-    attr_reader :queue, :feeds
-
-    def initialize(queue:, feeds:)
+    def initialize(queue:, feeds:, settings:)
       @queue = queue
       @feeds = feeds
+      @settings = settings
     end
 
     def call(uri:, scheduled_at:)
-      feed = feeds.find(uri, start_at: scheduled_at - ONE_DAY)
+      feed = feeds.find(uri, start_at: scheduled_at - settings.notify_period)
 
       feed.each do |item|
         queue.enqueue(item)
