@@ -51,6 +51,13 @@ Resources:
       Policies:
         - SQSSendMessagePolicy:
             QueueName: !GetAtt NotifierQueue.QueueName
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - appconfig:StartConfigurationSession
+                - appconfig:GetLatestConfiguration
+              Resource: !Sub "arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${Namespace}"
     Metadata:
       BuildMethod: makefile
   NotifierFunction:
@@ -61,6 +68,13 @@ Resources:
       Policies:
         - SQSPollerPolicy:
             QueueName: !GetAtt NotifierQueue.QueueName
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - appconfig:StartConfigurationSession
+                - appconfig:GetLatestConfiguration
+              Resource: !Sub "arn:aws:appconfig:${AWS::Region}:${AWS::AccountId}:application/${Namespace}"
       Events:
         NotifierEvent:
           Type: SQS
