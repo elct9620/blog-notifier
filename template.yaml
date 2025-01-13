@@ -22,6 +22,7 @@ Globals:
     LoggingConfig:
       LogFormat: JSON
     Layers:
+      - arn:aws:lambda:ap-northeast-1:980059726660:layer:AWS-AppConfig-Extension:125
       - !Ref GemLayer
     Environment:
       Variables:
@@ -73,3 +74,42 @@ Resources:
       QueueName: !Sub "${Namespace}_queue"
       VisibilityTimeout: 300
       MessageRetentionPeriod: 86400
+  # AppConfig
+  Config:
+    Type: AWS::AppConfig::Application
+    Properties:
+      Name: !Ref Namespace
+      Description: "The application configuration for the blog notifier"
+  ConfigEnvironment:
+    Type: AWS::AppConfig::Environment
+    Properties:
+      ApplicationId: !Ref Config
+      Name: production
+      Description: "The production environment for the blog notifier"
+  ConfigChannels:
+    Type: AWS::AppConfig::ConfigurationProfile
+    Properties:
+      ApplicationId: !Ref Config
+      Name: channels
+      Description: "The configuration profile for the notify channels"
+      LocationUri: hosted
+      Type: AWS.Freeform
+      Validators:
+        - Type: JSON_SCHEMA
+          Content: |
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["discord"]
+                  },
+                  "channel": {
+                    "type": "string"
+                  }
+                },
+                "required": ["type", "channel"]
+              }
+            }
