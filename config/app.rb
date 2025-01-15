@@ -17,10 +17,18 @@ class Application < Dry::System::Container
     config.root = Pathname.new(__dir__).join('..')
     config.provider_dirs = ['config/providers']
 
+    config.inflector = Dry::Inflector.new do |inflect|
+      inflect.acronym 'AppConfig'
+    end
+
     config.component_dirs.add 'app' do |dir|
       dir.auto_register = proc do |component|
         !component.identifier.start_with?('entities')
       end
+    end
+
+    config.component_dirs.add 'lib' do |dir|
+      dir.auto_register = false
     end
   end
 
