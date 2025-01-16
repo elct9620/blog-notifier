@@ -10,5 +10,13 @@ module Entities
       @link = link
       @published_at = published_at
     end
+
+    def to_h
+      {
+        title: title,
+        link: link,
+        published_at: published_at
+      }
+    end
   end
 end

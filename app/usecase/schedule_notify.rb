@@ -15,7 +15,10 @@ module Usecase
       feed = feeds.find(uri, start_at: scheduled_at - settings.notify_period)
 
       feed.each do |item|
-        queue.enqueue(item)
+        queue.enqueue(
+          destination: :discord,
+          item: item.to_h
+        )
       end
     end
   end
