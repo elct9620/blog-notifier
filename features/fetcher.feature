@@ -1,6 +1,15 @@
 Feature: Fetcher
   Scenario: The fetcher get latest articles from the feed
     Given the feed "https://blog.aotoki.me/index.xml" has content in the path "feed.xml"
+    And the appconfig profile "channels" has following configuration
+    """
+    [
+      {
+        "type": "discord",
+        "channel": "https://discord.com/api/webhooks/1234567890/ABCDEFGHIJKLMN0123456789"
+      }
+    ]
+    """
     When the "FetcherFunction" is invoked with the following payload:
       """
       {

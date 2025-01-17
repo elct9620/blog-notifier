@@ -3,11 +3,12 @@
 module Usecase
   # :nodoc:
   class ScheduleNotify
-    attr_reader :queue, :feeds, :settings
+    attr_reader :queue, :feeds, :channels, :settings
 
-    def initialize(queue:, feeds:, settings:)
+    def initialize(queue:, feeds:, channels:, settings:)
       @queue = queue
       @feeds = feeds
+      @channels = channels
       @settings = settings
     end
 
@@ -15,10 +16,12 @@ module Usecase
       feed = feeds.find(uri, start_at: scheduled_at - settings.notify_period)
 
       feed.each do |item|
-        queue.enqueue(
-          destination: :discord,
-          item: item.to_h
-        )
+        channels.all.each do |channel|
+          queue.enqueue(
+            destination: channel.type,
+            item: item.to_h
+          )
+        end
       end
     end
   end
