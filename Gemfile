@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'aws-sdk-sqs'
+gem 'dry-logger'
 gem 'dry-system', '1.1.1'
 gem 'rss'
 

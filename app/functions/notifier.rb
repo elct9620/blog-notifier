@@ -3,14 +3,19 @@
 module Functions
   # :nodoc:
   class Notifier
-    def call(event:, **)
+    include Deps[
+      :logger,
+    ]
+
+    def call(event:, **) # rubocop:disable Metrics/MethodLength
       usecase = Usecase::SendNotify.new
       event['Records'].map do |record|
-        body = JSON.parse(record['body'])
+        body = JSON.parse(record['body'], symbolize_names: true)
+        logger.info("Sending notification to #{body[:destination]} for #{body.dig(:item, :title)}")
 
         usecase.call(
-          destination: body['destination'],
-          item: body['item']
+          destination: body[:destination],
+          item: body[:item]
         )
       rescue JSON::ParserError => e
         { error: e.message }

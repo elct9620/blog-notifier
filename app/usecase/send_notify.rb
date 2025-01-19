@@ -7,7 +7,7 @@ module Usecase
       {
         destination:,
         item: {
-          title: item['title']
+          title: item[:title]
         }
       }
     end
