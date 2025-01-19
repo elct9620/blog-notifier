@@ -19,7 +19,7 @@ module Usecase
         {
           channel: channel.type,
           items: feed.select do |item|
-            queue.enqueue(destination: channel.type, item: item.to_h)
+            queue.enqueue(destination: channel.type, item: item)
           end
         }
       end
