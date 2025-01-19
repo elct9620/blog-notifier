@@ -18,7 +18,10 @@ module Functions
       usecase = Usecase::ScheduleNotify.new(queue:, channels:, feeds:, settings:)
       out = usecase.call(uri: event['feed_uri'], scheduled_at:)
       out.map do |item|
-        { title: item.title }
+        {
+          channel: item[:channel],
+          items: item[:items].map(&:title)
+        }
       end
     end
   end

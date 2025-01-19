@@ -21,7 +21,8 @@ Feature: Fetcher
       """
       [
         {
-          "title": "可能性 - 重新思考 Rails 架構"
+          "channel": "discord",
+          "items": ["可能性 - 重新思考 Rails 架構"]
         }
       ]
       """

@@ -15,13 +15,13 @@ module Usecase
     def call(uri:, scheduled_at:)
       feed = feeds.find(uri, start_at: scheduled_at - settings.notify_period)
 
-      feed.each do |item|
-        channels.all.each do |channel|
-          queue.enqueue(
-            destination: channel.type,
-            item: item.to_h
-          )
-        end
+      channels.all.flat_map do |channel|
+        {
+          channel: channel.type,
+          items: feed.select do |item|
+            queue.enqueue(destination: channel.type, item: item.to_h)
+          end
+        }
       end
     end
   end
