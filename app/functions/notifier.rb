@@ -4,7 +4,7 @@ module Functions
   # :nodoc:
   class Notifier
     include Deps[
-      :logger,
+      :logger
     ]
 
     def call(event:, **) # rubocop:disable Metrics/MethodLength

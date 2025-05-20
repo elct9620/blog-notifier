@@ -24,7 +24,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -348,3 +349,4 @@ node_modules/
 
 # SAM Environment
 env.json
+.aider*
