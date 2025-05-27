@@ -72,7 +72,7 @@ GEM
     ffi (1.17.1-arm64-darwin)
     hashdiff (1.1.2)
     jmespath (1.6.2)
-    json (2.12.0)
+    json (2.12.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -103,7 +103,7 @@ GEM
     rspec-support (3.13.2)
     rss (0.3.1)
       rexml
-    rubocop (1.75.6)
+    rubocop (1.75.7)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
