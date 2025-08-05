@@ -11,6 +11,7 @@ module Lambda
     FUNCTION_RESOLVE_KEY = 'functions'
 
     extend Forwardable
+
     delegate %w[config resolve] => Application
     delegate %w[inflector] => :config
 
